@@ -72,47 +72,47 @@ func makeMove() {
 	const PaperMove = "paper"
 	const ScissorsMove = "scissors"
 	const RockMove = "rock"
-	const P1WinsMessage = "P1 Wins"
-	const P2WinsMessage = "P2 Wins"
-
-	response := player1.Choice + "#" + player2.Choice
 	message := ""
 
 	if player1.Choice == player2.Choice {
 		message = "Draw"
 	} else if player1.Choice == PaperMove {
 		if player2.Choice == ScissorsMove {
-			player2.Score++
-			message = P2WinsMessage
+			message = p2Wins()
 		} else {
-			player1.Score++
-			message = P1WinsMessage
+			message = p1Wins()
 		}
 	} else if player1.Choice == RockMove {
 		if player2.Choice == PaperMove {
-			player2.Score++
-			message = P2WinsMessage
+			message = p2Wins()
 		} else {
-			player1.Score++
-			message = P1WinsMessage
+			message = p1Wins()
 		}
 	} else if player1.Choice == ScissorsMove {
 		if player2.Choice == RockMove {
-			player2.Score++
-			message = P2WinsMessage
+			message = p2Wins()
 		} else {
-			player1.Score++
-			message = P1WinsMessage
+			message = p1Wins()
 		}
 	}
 
-	response = response + "#" + strconv.Itoa(player1.Score) + "#" +
-		strconv.Itoa(player2.Score) + "#" + message
+	response := player1.Choice + "#" + player2.Choice + "#" +
+		strconv.Itoa(player1.Score) + "#" + strconv.Itoa(player2.Score) + "#" + message
 
 	player1.IsMoveMade = false
 	player2.IsMoveMade = false
 
 	socketsServer.BroadcastToRoom("", "gameRoom", "makeMove", response)
+}
+
+func p1Wins() string {
+	player1.Score++
+	return "P1 Wins"
+}
+
+func p2Wins() string {
+	player2.Score++
+	return "P2 Wins"
 }
 
 func playerConnect(connection socketio.Conn) {
@@ -132,6 +132,7 @@ func playerConnect(connection socketio.Conn) {
 	}
 
 	connection.Emit("ready", selectedPlayer)
+
 	if player1.IsConnected && player2.IsConnected && selectedPlayer != "" {
 		socketsServer.BroadcastToRoom("", "gameRoom", "gameStart")
 	}

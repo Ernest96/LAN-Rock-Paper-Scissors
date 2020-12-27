@@ -1,8 +1,8 @@
 var ip = window.location.href.split("://")[1].slice(0, -1);
-console.log(ip);
 const socket = io("http://" + ip);
 
-var choice;
+console.log(ip);
+
 const p1Span = document.getElementById('score-p1');
 const p2Span = document.getElementById('score-p2');
 const p1ChoiceImg = document.getElementById('p1-choice');
@@ -62,21 +62,18 @@ socket.on('ready', function (response) {
 });
 
 rockChoice.addEventListener('click', function () {
-    choice = 'rock';
-    play();
+    play('rock');
 });
 
 paperChoice.addEventListener('click', function () {
-    choice = 'paper';
-    play();
+    play('paper');
 });
 
 scissorsChoice.addEventListener('click', function () {
-    choice = 'scissors';
-    play();
+    play('scissors');
 });
 
-function play() {
+function play(choice) {
     choiceList.style.visibility = "hidden";
     spanMsg.innerHTML = "Waiting for the other player";
     socket.emit("play", choice);
