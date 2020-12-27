@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LAN Game</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="intro-menu">
+        <h1>Rock Paper Scissors</h1>
+        <div class="intro-images">
+            <img src="images/rock.png" />
+            <img src="images/paper.png" />
+            <img src="images/scissors.png" />
+        </div>
+        <h4>Connecting to game...</h2>
+    </div>
+
+    <div id="game-full">
+        <h1>Game is full</h1>
+    </div>
+
+    <div id="game">
+        <div id="current-player"></div>
+        <div class="top-section">
+            <div class="score-container">
+                <span id="label-p1">P1</span>
+                <span id="score-p1">0</span>
+                :
+                <span id="score-p2">0</span>
+                <span id="label-p2">P2</span>
+            </div>
+            <h1 id="message">Waiting for the other player...</h1>
+        </div>
+        <div class="bottom-section">
+            <div class="player1-section">
+                <div class="choice-container">
+                    <img src="images/rock.png" id="p1-choice" class="choice">
+                </div>
+            </div>
+            <div class="player2-section">
+                <img src="images/rock.png" id="p2-choice" class="choice">
+            </div>
+            
+        </div>
+        <div id="choice-list">
+            <img src="images/rock.png" id="rock">
+            <img src="images/paper.png" id="paper">
+            <img src="images/scissors.png" id="scissors">
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>
